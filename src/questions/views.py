@@ -12,13 +12,13 @@ def single(request, id):
             # fetching all the form data coming via POST.
             question_id = form.cleaned_data.get('question_id')
             answer_id = form.cleaned_data.get('answer_id')
-            their_answer_id = form.cleaned_data.get('their_importance_level')
+            their_answer_id = form.cleaned_data.get('their_answer_id')
             importance_level = form.cleaned_data.get('importance_level')
             their_importance_level = form.cleaned_data.get('their_importance_level')
             
             # DB Queries to get querysets.
             question_instance = Question.objects.get(id=question_id)
-            answer_instance = Question.objects.get(id=answer_id)
+            answer_instance = Answer.objects.get(id=answer_id)
 
             new_user_answer = UserAnswer()
             new_user_answer.user = request.user
@@ -27,9 +27,10 @@ def single(request, id):
             new_user_answer.my_answer_importance = importance_level
 
             if their_answer_id != -1:
-                their_answer_instance = Question.objects.get(id=their_answer_id)
+                # import ipdb; ipdb.set_trace()
+                their_answer_instance = Answer.objects.get(id=their_answer_id)
                 new_user_answer.their_answer = their_answer_instance
-                new_user_answer.their_answer_importance = their_answer_importance
+                new_user_answer.their_answer_importance = their_importance_level
             else:
                 new_user_answer.their_answer_importance = "Not Important"
             new_user_answer.save()

@@ -8,3 +8,27 @@ class UserResponseForm(forms.Form):
 	importance_level = forms.ChoiceField(choices=LEVELS)
 	their_answer_id = forms.IntegerField()
 	their_importance_level = forms.ChoiceField(choices=LEVELS)
+
+	def clean_answer_text(self):
+		answer_id = self.cleaned_data.get('answer_id')
+		try:
+			obj = Answer.objects.get(id=answer_id)
+		except:
+			forms.ValidationError("There was an error with the answer. Please try again.")
+		return answer_id
+
+	def clean_question_text(self):
+		question_id = self.cleaned_data.get('question_id')
+		try:
+			obj = Question.objects.get(id=question_id)
+		except:
+			forms.ValidationError("There was an error with the question. Please try again.")
+		return question_id
+
+	def clean_their_answer_text(self):
+		their_answer_id = self.cleaned_data.get('their_answer_id')
+		try:
+			obj = Answer.objects.get(id=their_answer_id)
+		except:
+			forms.ValidationError("There was an error with the answer. Please try again.")
+		return their_answer_id
