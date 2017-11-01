@@ -17,13 +17,13 @@ Importance: {{ form.importance_level }}
 
 <h3>Their ideal Answers</h3>
 {% for ans in instance.answer_set.all %}
-<li><input type='radio' name='coworker_answer_id' value='{{ ans.id }}'/>{{ ans.text }}</li>
+<li><input type='radio' name='their_answer_id' value='{{ ans.id }}'/>{{ ans.text }}</li>
 {% endfor %}
 
-<li><input type='radio' name='coworker_answer_id' value='-1'/>Doesn't matter at all.</li>
+<li><input type='radio' name='their_answer_id' value='-1'/>Doesn't matter at all.</li>
 
 </br>
-IMPORTANCE: {{ form.coworker_importance_level }} </br>
+IMPORTANCE: {{ form.their_importance_level }} </br>
 
 <input type='submit' value='Save and Continue'/>
 </form>
